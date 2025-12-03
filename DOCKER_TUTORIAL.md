@@ -44,7 +44,10 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 # Add your user to docker group (avoid using sudo)
 sudo usermod -aG docker $USER
 
-# IMPORTANT: Log out and log back in for group changes to take effect
+# Apply group changes immediately (alternative to logging out)
+newgrp docker
+
+# OR log out and log back in for group changes to take effect
 ```
 
 ### Verify Installation
