@@ -2,7 +2,10 @@
   "permissions": {
     "allow": [
       "Bash(docker:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(test:*)",
+      "Bash(cp:*)",
+      "Bash(curl:*)"
     ],
     "deny": [],
     "ask": []
