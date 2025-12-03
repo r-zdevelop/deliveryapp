@@ -1,0 +1,101 @@
+# Delivery App - Docker Compose Configuration (Development)
+# Purpose: Orchestrate backend, database, and cache services
+# Usage: docker compose up -d
+
+version: '3.8'
+
+services:
+  # Backend - PHP 8.4 + Apache
+  backend:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: delivery-backend
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      # Mount source code (live-reload for development)
+      - ./backend:/var/www/html
+      # Persist Composer cache
+      - composer-cache:/root/.composer
+    environment:
+      - APP_ENV=development
+      - APP_DEBUG=true
+      - DB_HOST=database
+      - DB_PORT=3306
+      - DB_NAME=deliveryapp
+      - DB_USER=delivery_user
+      - DB_PASSWORD=secure_password_change_me
+      - REDIS_HOST=cache
+      - REDIS_PORT=6379
+    depends_on:
+      - database
+      - cache
+    networks:
+      - delivery-network
+
+  # Database - MySQL 8.0
+  database:
+    image: mysql:8.0
+    container_name: delivery-db
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password_change_me
+      MYSQL_DATABASE: deliveryapp
+      MYSQL_USER: delivery_user
+      MYSQL_PASSWORD: secure_password_change_me
+    volumes:
+      # Persist database data
+      - mysql-data:/var/lib/mysql
+      # Custom MySQL configuration
+      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/custom.cnf
+    networks:
+      - delivery-network
+
+  # Cache - Redis 7
+  cache:
+    image: redis:7-alpine
+    container_name: delivery-cache
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      # Persist Redis data
+      - redis-data:/data
+    command: redis-server --appendonly yes --requirepass redis_password_change_me
+    networks:
+      - delivery-network
+
+  # phpMyAdmin (Optional - Database Management Tool)
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: delivery-phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: database
+      PMA_PORT: 3306
+      PMA_USER: delivery_user
+      PMA_PASSWORD: secure_password_change_me
+    depends_on:
+      - database
+    networks:
+      - delivery-network
+
+# Persistent Storage
+volumes:
+  mysql-data:
+    driver: local
+  redis-data:
+    driver: local
+  composer-cache:
+    driver: local
+
+# Network
+networks:
+  delivery-network:
+    driver: bridge
