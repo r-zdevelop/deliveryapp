@@ -2,8 +2,6 @@
 # Purpose: Orchestrate backend, database, and cache services
 # Usage: docker compose up -d
 
-version: '3.8'
-
 services:
   # Backend - PHP 8.4 + Apache
   backend:

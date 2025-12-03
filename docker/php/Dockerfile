@@ -50,13 +50,13 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Copy custom PHP configuration
-COPY php.ini /usr/local/etc/php/conf.d/custom.ini
+COPY docker/php/php.ini /usr/local/etc/php/conf.d/custom.ini
 
 # Enable Apache modules
 RUN a2enmod rewrite headers ssl
 
 # Copy Apache virtual host configuration
-COPY ../apache/delivery-app.conf /etc/apache2/sites-available/delivery-app.conf
+COPY docker/apache/delivery-app.conf /etc/apache2/sites-available/delivery-app.conf
 RUN a2dissite 000-default.conf && a2ensite delivery-app.conf
 
 # Set permissions for Apache
