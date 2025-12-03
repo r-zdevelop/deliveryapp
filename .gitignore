@@ -1,0 +1,48 @@
+# Delivery App - Git Ignore
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+backend/vendor/
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+backend/storage/logs/*.log
+
+# Cache
+backend/storage/cache/
+backend/storage/framework/cache/
+backend/storage/framework/sessions/
+backend/storage/framework/views/
+
+# Uploaded files
+backend/storage/uploads/
+
+# Build files
+backend/public/build/
+mobile/build/
+
+# Testing
+backend/coverage/
+phpunit.xml
+
+# Docker (optional - uncomment if you don't want to track these)
+# docker-compose.override.yml
+
+.prompts/
