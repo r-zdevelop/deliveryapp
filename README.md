@@ -136,8 +136,17 @@ docker compose up -d --build
 ### Sprint 0: Foundation & Learning
 
 1. **[Docker Fundamentals](DOCKER_TUTORIAL.md)** - Learn containerization basics
-2. **Setup Local Development** - PHP, Composer, Flutter
-3. **Architecture Design** - Clean Architecture principles
+2. **Setup Local Development** - PHP, Composer, Flutter ✅
+3. **[Architecture Documentation](docs/architecture.md)** - Clean Architecture principles ✅
+
+### Architecture Documentation (Sprint 0 - Complete)
+
+- **[Architecture Overview](docs/architecture.md)** - Main architecture reference
+- **[Clean Architecture Guide](docs/architecture/clean-architecture.md)** - Layer responsibilities and patterns
+- **[API Specification (OpenAPI 3.0)](docs/api/openapi.yaml)** - RESTful API contract
+- **[Database Schema & ERD](docs/database/schema.md)** - Database design with relationships
+- **[Database Migrations](docs/database/migrations/)** - SQL migration files
+- **[Seed Data](docs/database/seeds/)** - Development test data
 
 ---
 
@@ -171,8 +180,14 @@ docker compose exec backend ./vendor/bin/phpunit --coverage-html coverage/
 
 ## 📖 API Documentation
 
-API documentation will be available at:
-- **OpenAPI/Swagger:** http://localhost:8080/api/docs (coming in Sprint 1-2)
+- **[OpenAPI 3.0 Specification](docs/api/openapi.yaml)** - Full API contract ✅
+- **Swagger UI:** http://localhost:8080/api/docs (coming in Sprint 1-2)
+
+To view the OpenAPI spec:
+```bash
+# Copy the content of docs/api/openapi.yaml
+# Paste into: https://editor.swagger.io/
+```
 
 ---
 
